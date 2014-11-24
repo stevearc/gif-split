@@ -1,0 +1,3 @@
+include CHANGES.rst
+include README.rst
+recursive-include gif_split *.jinja2 *.js *.css *.eot *.svg *.ttf *.woff *.otf *.html *.png

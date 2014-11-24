@@ -52,3 +52,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+
+gif_env
+*.swp
+.ropeproject
+gif_split/static
