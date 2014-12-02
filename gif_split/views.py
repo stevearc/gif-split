@@ -20,13 +20,20 @@ LOG = logging.getLogger(__name__)
 @argify
 def index_view(request, url=None):
     """ Root view '/' """
-    if url is not None:
-        filename = posixpath.basename(url).replace('.gif', '')
-        filename = filename + "_sprite.gif"
+    if url:
+        filename, ext = posixpath.splitext(posixpath.basename(url))
+        ext = ext.lower()
+        filename = filename + "_sprite" + ext
+        if ext == '.gif':
+            img_format = 'GIF'
+        elif ext == '.png':
+            img_format = 'PNG'
+        else:
+            img_format = None
         stream = download_gif(url)
         sprite = convert_gif(stream)
         data = StringIO()
-        sprite.save(data, format='GIF')
+        sprite.save(data, format=img_format)
         data.seek(0)
         disp = CONTENT_DISPOSITION.tuples(filename=filename)
         request.response.headers.update(disp)
